@@ -13,20 +13,22 @@
 ; compute the average temperature 
 (check-expect (average (cons 1 (cons 2 (cons 3 empty)))) 2)
 (define (average anelot) 
-  ( ... (sum anelot) ... (how-many anelot) ...))
+  (/ (sum anelot) (how-many anelot)))
 
 ; NEList-of-temperatures -> Number
 ; compute the sum of the given temperatures 
 (check-expect (sum (cons 1 (cons 2 (cons 3 empty)))) 6)
 (define (sum anelot) 
   (cond
-    [(empty? (rest anelot)) ...]
-    [(cons? (rest anelot)) ...]))
+    [(empty? (rest anelot)) (first anelot)]
+    [(cons? (rest anelot)) 
+     (+ (first anelot) (sum (rest anelot)))]))
 
 ; NEList-of-temperatures -> Number
 ; determine how many numbers are in a list of temperatures
 (check-expect (how-many (cons 1 (cons 2 (cons 3 empty)))) 3)
 (define (how-many anelot) 
   (cond
-    [(empty? (rest anelot)) ...]
-    [(cons? (rest anelot)) ...]))
+    [(empty? (rest anelot)) 1]
+    [(cons? (rest anelot))
+     (+ 1 (how-many (rest anelot)))]))
