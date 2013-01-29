@@ -7,3 +7,16 @@
 ; – (cons CTemperature empty)
 ; – (cons CTemperature NEList-of-temperatures)
 ; interp.: non-empty lists of measured temperatures 
+
+
+; NEList-of-temperatures -> Number
+; compute the average temperature 
+(define (average anelot) 0)
+
+; NEList-of-temperatures -> Number
+; compute the sum of the given temperatures 
+(define (sum anelot) 0)
+
+; NEList-of-temperatures -> Number
+; determine how many numbers are in a list of temperatures
+(define (how-many anelot) 0)
