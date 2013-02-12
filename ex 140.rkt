@@ -19,5 +19,6 @@
 (check-expect (convertFC (list 5 41)) (list -15 5))
 (define (convertFC lot) 
   (cond
-    [(empty? (rest lot)) ... ]
-    [(cons? lot) ...  (first lot)... (convertFC (rest lot))...]))
+    [(empty? lot) empty ]
+    [(cons? lot) (cons 
+                  (*(- (first lot) 32) (/ 5 9)) (convertFC (rest lot)))]))
