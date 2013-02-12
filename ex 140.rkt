@@ -17,4 +17,7 @@
 ; List-of-Ftemperatures -> List-of-Ctemperatures
 ; convert a list of fahrenheit temperatures to a list of celsius temperatures
 (check-expect (convertFC (list 5 41)) (list -15 5))
-(define (convertFC) empty)
+(define (convertFC lot) 
+  (cond
+    [(empty? (rest lot)) ... ]
+    [(cons? lot) ...  (first lot)... (convertFC (rest lot))...]))
