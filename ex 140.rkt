@@ -14,3 +14,6 @@
 ; interp.: a list of Celsius temperatures
 
 
+; List-of-Ftemperatures -> List-of-Ctemperatures
+; convert a list of fahrenheit temperatures to a list of celsius temperatures
+(define (convertFC) empty)
