@@ -13,12 +13,17 @@
 ; - (cons Temperature List-of-temperatures)
 ; interp.: a list of Celsius temperatures
 
+; Number -> number
+; compute the celsius temperature for a given fahrenheit temperature
+(check-expect (convertFC 5) -15)
+(define (convertFC n) 
+  (* (- n 32) (/ 5 9)))
 
 ; List-of-Ftemperatures -> List-of-Ctemperatures
 ; convert a list of fahrenheit temperatures to a list of celsius temperatures
-(check-expect (convertFC (list 5 41)) (list -15 5))
-(define (convertFC lot) 
+(check-expect (convertFC* (list 5 41)) (list -15 5))
+(define (convertFC* lot) 
   (cond
     [(empty? lot) empty ]
     [(cons? lot) (cons 
-                  (*(- (first lot) 32) (/ 5 9)) (convertFC (rest lot)))]))
+                  (convertFC (first lot)) (convertFC* (rest lot)))]))
