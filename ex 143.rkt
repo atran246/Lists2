@@ -4,15 +4,20 @@
 ; Andrew Tran Ex 143
 
 
-(define-struct work (name rate hours))
-; Work is a structure: (make-work String Number Number). 
-; interp. (make-work s r h) combines the name (n) 
+(define-struct work (info rate hours))
+; Work is a structure: (make-work Info Number Number). 
+; interp. (make-work s r h) combines the info (s) 
 ; with the pay rate (r) and the number of hours (h) worked.
 
-(define-struct check (name amount))
-; Work is a structure: (make-work String Number). 
-; interp. (make-work n a) combines the name (n) 
-; with the amount paid to that person (a).
+(define-struct check (name id amount))
+; check is a structure: (make-work String Number Number). 
+; interp. (make-work n i a) combines the name (n) 
+; with the id of the person (i) with the amount paid to that person (a).
+
+(define-struct info (name id))
+; info is a structure: (make-info String Number). 
+; interp. (make-info n i) combines the name (n) 
+; with the id of that person (i).
 
 ; Low (list of works) is one of: 
 ; – empty
@@ -24,10 +29,11 @@
 ; – empty
 ; – (cons Check Loc)
 ; interp. a Loc as a list of paychecks 
+ 
 
 ; Low -> List-of-numbers
 ; compute the weekly wages for all given weekly work records 
-(check-expect (wage* (cons (make-work "Robby" 11.95 39) empty))
+(check-expect (wage* (cons (make-work (make-info "Robby" 12345) 11.95 39) empty))
               (cons (* 11.95 39) empty))
 
 (define (wage* low) 
@@ -38,7 +44,7 @@
 
 ; Work -> number
 ; compute the wage for the given work record 
-(check-expect (wage (make-work "Robby" 11.95 39))
+(check-expect (wage (make-work (make-info "Robby" 12345) 11.95 39))
               (* 11.95 39) )
 (define (wage w) 
   (* (work-rate w) (work-hours w)))
@@ -46,17 +52,17 @@
 
 ; Low -> Loc
 ; take a list of works and produce a list of checks
-(check-expect (wage*.v3 (cons (make-work "Robby" 11.95 39) empty))
-              (cons (make-check "Robby" (* 11.95 39)) empty))
-(define (wage*.v3 low) 
+(check-expect (wage*.v4 (cons (make-work (make-info "Robby" 12345) 11.95 39) empty))
+              (cons (make-check "Robby" 12345 (* 11.95 39)) empty))
+(define (wage*.v4 low) 
   (cond
     [(empty? low) empty]
-    [(cons? low) (cons (wage.v3 (first low))
-                       (wage*.v3 (rest low)))]))
+    [(cons? low) (cons (wage.v4 (first low))
+                       (wage*.v4 (rest low)))]))
 
 ; Work -> Check
 ; to take a work and produce a check
-(check-expect (wage.v3 (make-work "Robby" 11.95 39))
-              (make-check "Robby" (* 11.95 39)))
-(define (wage.v3 w) 
-  (make-check (work-name w) (wage w)))
+(check-expect (wage.v4 (make-work (make-info "Robby" 12345) 11.95 39))
+              (make-check "Robby" 12345 (* 11.95 39))) 
+(define (wage.v4 w) 
+  (make-check (info-name (work-info w)) (info-id (work-info w)) (wage w)))
