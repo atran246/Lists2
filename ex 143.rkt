@@ -20,4 +20,23 @@
 ; interp. an instance of Low represents the work efforts
 ; of some hourly employees
 
+; Loc (list of checks) is one of: 
+; – empty
+; – (cons Check Loc)
+; interp. a Loc as a list of paychecks 
 
+; Low -> List-of-numbers
+; compute the weekly wages for all given weekly work records 
+(define (wage* s) empty)
+
+; Work -> number
+; compute the wage for the given work record w
+(define (wage w) 0)
+
+; Low -> Loc
+; take a list of works and produce a list of checks
+(define (wage.v3* low) empty)
+
+; Work -> Check
+; to take a work and produce a check
+(define (wage.v3 w) 0)
