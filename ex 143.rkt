@@ -27,16 +27,26 @@
 
 ; Low -> List-of-numbers
 ; compute the weekly wages for all given weekly work records 
+(check-expect (wage* (cons (make-work "Robby" 11.95 39) empty))
+              (cons (* 11.95 39) empty))
+
 (define (wage* s) empty)
 
 ; Work -> number
-; compute the wage for the given work record w
+; compute the wage for the given work record 
+(check-expect (wage (make-work "Robby" 11.95 39))
+              (* 11.95 39) )
+
 (define (wage w) 0)
 
 ; Low -> Loc
 ; take a list of works and produce a list of checks
+(check-expect (wage.v3* (cons (make-work "Robby" 11.95 39) empty))
+              (cons (make-check "Robby" (* 11.95 39)) empty))
 (define (wage.v3* low) empty)
 
 ; Work -> Check
 ; to take a work and produce a check
+(check-expect (wage.v3* (make-work "Robby" 11.95 39))
+              (make-check "Robby" (* 11.95 39)))
 (define (wage.v3 w) 0)
