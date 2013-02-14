@@ -30,23 +30,31 @@
 (check-expect (wage* (cons (make-work "Robby" 11.95 39) empty))
               (cons (* 11.95 39) empty))
 
-(define (wage* s) empty)
+(define (wage* low) 
+  (cond
+    [(empty? low) ...]
+    [(cons? low) ... (first low) ... (rest low)]))
 
 ; Work -> number
 ; compute the wage for the given work record 
 (check-expect (wage (make-work "Robby" 11.95 39))
               (* 11.95 39) )
+(define (wage w) 
+  (* (work-rate w) (work-hours w)))
 
-(define (wage w) 0)
 
 ; Low -> Loc
 ; take a list of works and produce a list of checks
 (check-expect (wage.v3* (cons (make-work "Robby" 11.95 39) empty))
               (cons (make-check "Robby" (* 11.95 39)) empty))
-(define (wage.v3* low) empty)
+(define (wage.v3* low) 
+  (cond
+    [(empty? low) ...]
+    [(cons? low) ... (first low) ... (rest low)]))
 
 ; Work -> Check
 ; to take a work and produce a check
 (check-expect (wage.v3* (make-work "Robby" 11.95 39))
               (make-check "Robby" (* 11.95 39)))
-(define (wage.v3 w) 0)
+(define (wage.v3 w) 
+  (make-check (work-name w) (wage w)))
