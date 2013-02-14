@@ -32,8 +32,9 @@
 
 (define (wage* low) 
   (cond
-    [(empty? low) ...]
-    [(cons? low) ... (first low) ... (rest low)]))
+    [(empty? low) empty]
+    [(cons? low) (cons (wage (first low))  
+                       (wage*(rest low)))]))
 
 ; Work -> number
 ; compute the wage for the given work record 
@@ -45,16 +46,17 @@
 
 ; Low -> Loc
 ; take a list of works and produce a list of checks
-(check-expect (wage.v3* (cons (make-work "Robby" 11.95 39) empty))
+(check-expect (wage*.v3 (cons (make-work "Robby" 11.95 39) empty))
               (cons (make-check "Robby" (* 11.95 39)) empty))
-(define (wage.v3* low) 
+(define (wage*.v3 low) 
   (cond
-    [(empty? low) ...]
-    [(cons? low) ... (first low) ... (rest low)]))
+    [(empty? low) empty]
+    [(cons? low) (cons (wage.v3 (first low))
+                       (wage*.v3 (rest low)))]))
 
 ; Work -> Check
 ; to take a work and produce a check
-(check-expect (wage.v3* (make-work "Robby" 11.95 39))
+(check-expect (wage.v3 (make-work "Robby" 11.95 39))
               (make-check "Robby" (* 11.95 39)))
 (define (wage.v3 w) 
   (make-check (work-name w) (wage w)))
